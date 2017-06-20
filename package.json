@@ -1,0 +1,16 @@
+{
+  "name": "hoola-server",
+  "version": "0.0.0",
+  "description": "Hoola Server",
+  "main": "server.js",
+  "author": "John Wu",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.4.3",
+    "dotenv": "^4.0.0",
+    "express": "^4.13.4",
+    "method-override": "^2.3.9",
+    "morgan": "^1.8.2",
+    "pg-promise": "^5.9.3"
+  }
+}
