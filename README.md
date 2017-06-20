@@ -6,12 +6,6 @@ The front end web application can be found at: https://github.com/johnwu10/hoola
 
 ## Prerequisites
 
-Install angular-cli globally. Example using npm:
-
-```
-npm install -g angular-cli
-```
-
 Install Node.js and NPM globally. Example using brew:
 
 ```
