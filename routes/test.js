@@ -1,16 +1,17 @@
-var express = require('express');
-var router = express.Router();
+const pool = require('../lib/db');
 
-var db = require('../queries/queries.js');
+var userService = require('../api/service/userService');
 
-/* Test Hello World Endpoint*/
-router.get('/', function(req, res, next) {
-    res.send({
-        'title': 'Hello World'
+module.exports = function(app) {
+
+    app.get('/test', function(req, res) {
+        pool.query('SELECT * FROM test', [], function(err, data) {
+            if(err) {
+                console.error('error running query', err);
+                res.sendStatus(404);
+            }
+            res.send(data);
+        });
     });
-});
 
-/* Test Postgres Endpoint */
-router.get('/db', db.getTest );
-
-module.exports = router;
+};

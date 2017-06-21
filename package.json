@@ -11,6 +11,8 @@
     "express": "^4.13.4",
     "method-override": "^2.3.9",
     "morgan": "^1.8.2",
-    "pg-promise": "^5.9.3"
+    "pg": "^6.3.1",
+    "pg-promise": "^5.9.3",
+    "schema-object": "^4.0.11"
   }
 }

@@ -8,9 +8,6 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
-// route files
-var test = require('./routes/test');
-
 // setup
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
@@ -19,8 +16,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(methodOverride());
 
-// routes
-app.use('/test', test);
+// route files
+var test = require('./routes/test')(app);
 
 // start server
 app.listen(port);

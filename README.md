@@ -34,4 +34,4 @@ npm install
 ```
 node server.js
 ```
-Once server is started, endpoints can be reached at port 5000.
+Once server is started, endpoints can be reached at port 5000. See routes folder for different endpoints to reach.
