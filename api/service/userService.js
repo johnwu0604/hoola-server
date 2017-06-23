@@ -16,7 +16,16 @@ module.exports = {
             if(err) {
                 return console.error('error running query', err);
             }
-            return data
+            return data;
+        });
+    },
+
+    findOne: function(email, password, done) {
+        db.query('SELECT * FROM users WHERE users.email = $1 AND users.password = $2', [email, password], function(err, data) {
+           if (err) {
+               return console.error('error running query', err);
+           }
+           return done(data);
         });
     }
 

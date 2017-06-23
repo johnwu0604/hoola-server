@@ -18,6 +18,7 @@ app.use(methodOverride());
 
 // route files
 var test = require('./routes/test')(app);
+var authentication = require('./routes/authentication')(app);
 
 // start server
 app.listen(port);
