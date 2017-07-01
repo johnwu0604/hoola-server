@@ -8,17 +8,29 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
+// passport
+var passport = require('passport');
+var expressSession = require('express-session');
+var initAuthenticationController = require('./api/controller/authenticationController');
+
 // setup
-app.use(express.static(__dirname + '/public'));
+app.use(expressSession({
+    secret: 'secret-key',
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(methodOverride());
+initAuthenticationController(passport);
 
 // route files
 var test = require('./routes/test')(app);
-var authentication = require('./routes/authentication')(app);
+var authentication = require('./routes/authentication')(app,passport);
 
 // start server
 app.listen(port);

@@ -1,17 +1,34 @@
-var authenticationController = require('../api/controller/authenticationController');
+var isAuthenticated = function (req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+    res.redirect('/');
+}
 
-module.exports = function(app) {
+module.exports = function(app, passport) {
 
-    app.get('/login', function(req, res) {
-        var email = req.query.email;
-        var password = req.query.password;
-        console.log("Data is....");
-        console.log(req);
-        console.log("Email", email);
-        console.log("Password:", password);
-        authenticationController.authenticateLogin(email, password, function(data) {
-            res.send(data);
-        });
+    app.post('/signup', passport.authenticate('signup', {
+        successRedirect: '/dashboard',
+        failureRedirect: '/'
+    }));
+
+    app.post('/login', passport.authenticate('login', {
+        successRedirect: '/dashboard',
+        failureRedirect: '/'
+    }));
+
+    app.get('/logout', function(req, res) {
+        req.logout();
+        res.redirect('/');
     });
+
+    // Temp endpoint since dashboard api's have not been made yet
+    app.get('/dashboard', isAuthenticated, function(req, res){
+        res.send('Dashboard');
+    });
+
+    app.get('/', function(req, res) {
+        res.send('Home page');
+    });
+
 
 };
