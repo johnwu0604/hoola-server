@@ -9,7 +9,7 @@ var taskController = require('../api/controller/taskController')
 
 module.exports = function (app, passport) {
 
-    app.get('/tasks', isAuthenticated, function(req,res) {
+    app.get('/tasks', function(req,res) {
         taskController.getUserTasks(req, function(tasks) {
             res.send(tasks)
         })
