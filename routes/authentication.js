@@ -20,21 +20,21 @@ module.exports = function (app, passport) {
   })
 
   app.get('/login-success', isAuthenticated, function (req, res) {
-      res.send(200, {
+      res.status(200).send({
         'loginSuccess': true,
         'user': req.user
       })
   })
 
   app.get('/login-failure', function (req, res) {
-      res.send(200, {
+      res.status(200).send({
           'loginSuccess': false,
           'user': null
       })
   })
 
   app.get('/unauthorized', function (req, res) {
-      res.send(401, "User unauthorized")
+      res.status(401).send("User unauthorized")
   })
 
     // Temp endpoint since dashboard api's have not been made yet

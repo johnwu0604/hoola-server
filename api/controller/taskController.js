@@ -5,7 +5,7 @@ var taskService = require('../service/taskService')
 module.exports = {
 
     getUserTasks: function (req, done) {
-        taskService.findByUserId('12345', function(tasks) {
+        taskService.findByUserId(req.user.user_id, function(tasks) {
             return done(tasks)
         })
     }

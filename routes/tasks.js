@@ -3,13 +3,13 @@
  */
 var isAuthenticated = function (req, res, next) {
     if (req.isAuthenticated()) { return next() }
-    res.redirect('/')
+    res.redirect('/unauthorized')
 }
 var taskController = require('../api/controller/taskController')
 
 module.exports = function (app, passport) {
 
-    app.get('/tasks', function(req,res) {
+    app.get('/tasks', isAuthenticated, function(req,res) {
         taskController.getUserTasks(req, function(tasks) {
             res.send(tasks)
         })
