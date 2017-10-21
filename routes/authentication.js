@@ -20,14 +20,14 @@ module.exports = function (app, passport) {
   })
 
   app.get('/login-success', isAuthenticated, function (req, res) {
-      res.send(400, {
+      res.send(200, {
         'loginSuccess': true,
         'user': req.user
       })
   })
 
   app.get('/login-failure', function (req, res) {
-      res.send(400, {
+      res.send(200, {
           'loginSuccess': false,
           'user': null
       })
@@ -43,6 +43,6 @@ module.exports = function (app, passport) {
   })
 
   app.get('/', function (req, res) {
-    res.send(400)
+    res.send(200)
   })
 }
