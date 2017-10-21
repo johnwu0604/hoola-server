@@ -12,7 +12,7 @@ module.exports = function (app, passport) {
     app.get('/tasks', isAuthenticated, function(req,res) {
         taskController.getUserTasks(req, function(tasks) {
             res.send({
-                "user_authenticated": false,
+                "user_authenticated": true,
                 "tasks": tasks
             })
         })
