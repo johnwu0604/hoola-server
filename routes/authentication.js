@@ -10,13 +10,27 @@ module.exports = function (app, passport) {
   }))
 
   app.post('/login', passport.authenticate('login', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/'
+    successRedirect: '/login-success',
+    failureRedirect: '/login-failure'
   }))
 
   app.get('/logout', function (req, res) {
     req.logout()
     res.redirect('/')
+  })
+
+  app.get('/login-success', isAuthenticated, function (req, res) {
+      res.send({
+        'loginSuccess': true,
+        'user': req.user
+      })
+  })
+
+  app.get('/login-failure', function (req, res) {
+      res.send({
+          'loginSuccess': false,
+          'user': null
+      })
   })
 
     // Temp endpoint since dashboard api's have not been made yet
