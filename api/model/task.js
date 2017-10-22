@@ -7,8 +7,7 @@ var Task = new SchemaObject({
     task_id: String,
     user_id: String,
     description: String,
-    due_date: Date,
-    time: String
+    due_date: Date
 })
 
 module.exports = Task
