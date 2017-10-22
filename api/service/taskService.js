@@ -54,9 +54,25 @@ module.exports = {
      * @param user
      * @param done
      */
-    deleteTaskById: function (task_id, done) {
+    deleteTask: function (task_id, done) {
         db.query('DELETE FROM tasks WHERE task_id = $1',
             [task_id], function (err, data) {
+                if (err) {
+                    return console.error('error running query', err)
+                }
+                return done()
+            })
+    },
+
+    /**
+     * Updates a task with given parameters
+     *
+     * @param task
+     * @param done
+     */
+    updateTask: function (task, done) {
+        db.query('UPDATE tasks SET description = $1, due_date = $2 WHERE task_id = $3',
+           [task.description, task.due_date, task.task_id], function (err, data) {
                 if (err) {
                     return console.error('error running query', err)
                 }

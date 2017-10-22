@@ -29,7 +29,9 @@ module.exports = {
         task.description = req.param('description')
         task.due_date = req.param('due_date')
         taskService.addTask(task, function() {
-            return done()
+            taskService.findByUserId(req.user.user_id, function(tasks) {
+                return done(tasks)
+            })
         })
     },
 
@@ -39,9 +41,29 @@ module.exports = {
      * @param task_id
      * @param done
      */
-    deleteTask: function (task_id, done) {
-        taskService.deleteTaskById(task_id, function() {
-            return done()
+    deleteTask: function (req, done) {
+        taskService.deleteTask(req.params.task_id, function() {
+            taskService.findByUserId(req.user.user_id, function(tasks) {
+                return done(tasks)
+            })
+        })
+    },
+
+    /**
+     * Updates a task
+     *
+     * @param req
+     * @param done
+     */
+    updateTask: function (req, done) {
+        taskService.findById(req.params.task_id, function(task) {
+            task.description = req.param('description') || task.description
+            task.due_date = req.param('due_date') || task.due_date
+            taskService.updateTask(task, function() {
+                taskService.findByUserId(req.user.user_id, function(tasks) {
+                    return done(tasks)
+                })
+            })
         })
     }
 

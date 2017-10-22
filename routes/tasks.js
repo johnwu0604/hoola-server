@@ -19,12 +19,28 @@ module.exports = function (app, passport) {
     })
 
     app.post('/task', isAuthenticated, function (req, res) {
-        taskController.addTaskToUser(req, function() {
-            taskController.getUserTasks(req, function(tasks) {
-                res.status(200).send({
-                    "user_authenticated": true,
-                    "tasks": tasks
-                })
+        taskController.addTaskToUser(req, function(tasks) {
+            res.status(200).send({
+                "user_authenticated": true,
+                "tasks": tasks
+            })
+        })
+    })
+
+    app.put('/task/:task_id', isAuthenticated, function (req, res) {
+        taskController.updateTask(req, function(tasks) {
+            res.status(200).send({
+                "user_authenticated": true,
+                "tasks": tasks
+            })
+        })
+    })
+
+    app.delete('/task/:task_id', isAuthenticated, function (req, res) {
+        taskController.deleteTask(req, function (tasks) {
+            res.status(200).send({
+                "user_authenticated": true,
+                "tasks": tasks
             })
         })
     })
