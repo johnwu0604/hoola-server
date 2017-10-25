@@ -40,6 +40,7 @@ initAuthenticationController(passport)
 require('./routes/authentication')(app, passport)
 require('./routes/tasks')(app, passport)
 require('./routes/shopping')(app, passport)
+require('./routes/notes')(app, passport)
 
 // start server
 app.listen(port)
