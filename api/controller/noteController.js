@@ -24,7 +24,7 @@ module.exports = {
      * @param done
      */
     updateNotePad: function (req, done) {
-        noteService.findById(req.params.note_id, function(note) {
+        noteService.findById(req.params.notebook_id, function(note) {
             note.name = req.param('name') || note.name
             note.text = req.param('text') || note.text
             noteService.updateNote(note, function() {
