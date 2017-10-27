@@ -23,7 +23,7 @@ module.exports = {
      * @param done
      */
     retrieveAllFinanceCategories: function (done) {
-        db.query('SELECT * FROM finance_categories', [], function (err, data) {
+        db.query('SELECT * FROM finance_categories ORDER BY category_id ASC', [], function (err, data) {
             if (err) {
                 return console.error('error running query', err)
             }
@@ -37,7 +37,7 @@ module.exports = {
      * @param done
      */
     retrieveAllFinanceTypes: function (done) {
-        db.query('SELECT * FROM finance_types', [], function (err, data) {
+        db.query('SELECT * FROM finance_types ORDER BY type_id ASC', [], function (err, data) {
             if (err) {
                 return console.error('error running query', err)
             }
