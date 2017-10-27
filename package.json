@@ -5,6 +5,7 @@
   "main": "server.js",
   "author": "John Wu",
   "dependencies": {
+    "async": "^2.5.0",
     "bluebird": "^3.5.0",
     "body-parser": "^1.4.3",
     "connect-flash": "^0.1.1",
