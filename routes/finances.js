@@ -31,7 +31,7 @@ module.exports = function (app, passport) {
         financeController.addItemToUser(req, function(items) {
             res.status(200).send({
                 "user_authenticated": true,
-                "finances": items
+                "items": items
             })
         })
     })
@@ -43,7 +43,7 @@ module.exports = function (app, passport) {
         financeController.deleteFinanceItem(req, function (items) {
             res.status(200).send({
                 "user_authenticated": true,
-                "finances": items
+                "items": items
             })
         })
     })
