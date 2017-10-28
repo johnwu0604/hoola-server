@@ -1,7 +1,7 @@
 var SchemaObject = require('schema-object')
 
 /**
- * Schema for a user object
+ * Schema for a task object
  */
 var Task = new SchemaObject({
     task_id: String,

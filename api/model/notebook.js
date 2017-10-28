@@ -1,13 +1,13 @@
 var SchemaObject = require('schema-object')
 
 /**
- * Schema for a note object
+ * Schema for a notebook object
  */
-var Note = new SchemaObject({
+var Notebook = new SchemaObject({
     note_id: String,
     user_id: String,
     name: String,
     text: String
 })
 
-module.exports = Note
+module.exports = Notebook

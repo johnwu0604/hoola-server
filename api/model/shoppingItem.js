@@ -1,7 +1,7 @@
 var SchemaObject = require('schema-object')
 
 /**
- * Schema for a shopping object
+ * Schema for a shopping item object
  */
 var ShoppingItem = new SchemaObject({
     item_id: String,

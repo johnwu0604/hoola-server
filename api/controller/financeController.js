@@ -65,8 +65,8 @@ module.exports = {
      * @param item_id
      * @param done
      */
-    deleteFinanceItem: function (req, done) {
-        financeService.deleteFinanceItem(req.params.item_id, function() {
+    deleteItem: function (req, done) {
+        financeService.deleteItem(req.params.item_id, function() {
             financeService.findFinanceItemsByUserId(req.user.user_id, function(items) {
                 return done(items)
             })

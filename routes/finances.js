@@ -40,7 +40,7 @@ module.exports = function (app, passport) {
      * Deletes a financial item for an authenticated user
      */
     app.delete('/finance/:item_id', isAuthenticated, function (req, res) {
-        financeController.deleteFinanceItem(req, function (items) {
+        financeController.deleteItem(req, function (items) {
             res.status(200).send({
                 "user_authenticated": true,
                 "items": items

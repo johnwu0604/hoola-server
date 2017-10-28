@@ -17,7 +17,7 @@ module.exports = {
     },
 
     /**
-     * Add shopping items to the user
+     * Add shopping item to the user
      *
      * @param req
      * @param done
@@ -37,7 +37,7 @@ module.exports = {
     /**
      * Delete a shopping item given an id
      *
-     * @param item_id
+     * @param req
      * @param done
      */
     deleteShoppingItem: function (req, done) {

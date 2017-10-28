@@ -3,13 +3,13 @@ var db = require('../../lib/db')
 module.exports = {
 
     /**
-     * Finds a note pad given an their note_id
+     * Finds a notebook given their note_id
      *
      * @param id
      * @param done
      */
     findById: function (id, done) {
-        db.query('SELECT * FROM notes WHERE notes.note_id = $1', [id], function (err, data) {
+        db.query('SELECT * FROM notebooks WHERE notebooks.notebook_id = $1', [id], function (err, data) {
             if (err) {
                 return console.error('error running query', err)
             }
@@ -18,13 +18,13 @@ module.exports = {
     },
 
     /**
-     * Find note pad by user_id
+     * Find notebook by user_id
      *
      * @param user_id
      * @param done
      */
     findByUserId: function (user_id, done) {
-        db.query('SELECT * FROM notes WHERE notes.user_id = $1', [user_id], function (err, data) {
+        db.query('SELECT * FROM notebooks WHERE notebooks.user_id = $1', [user_id], function (err, data) {
             if (err) {
                 return console.error('error running query', err)
             }
@@ -34,14 +34,14 @@ module.exports = {
 
 
     /**
-     * Updates a note pad with given parameters
+     * Updates a notebook with given parameters
      *
-     * @param note
+     * @param notebook
      * @param done
      */
-    updateNote: function (note, done) {
-        db.query('UPDATE notes SET name = $1, text = $2 WHERE note_id = $3',
-            [note.name, note.text, note.note_id], function (err, data) {
+    updateNotebook: function (notebook, done) {
+        db.query('UPDATE notebooks SET name = $1, text = $2 WHERE notebook_id = $3',
+            [notebook.name, notebook.text, notebook.notebook_id], function (err, data) {
                 if (err) {
                     return console.error('error running query', err)
                 }

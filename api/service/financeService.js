@@ -85,7 +85,7 @@ module.exports = {
      * @param user
      * @param done
      */
-    deleteFinanceItem: function (item_id, done) {
+    deleteItem: function (item_id, done) {
         db.query('DELETE FROM finances WHERE item_id = $1',
             [item_id], function (err, data) {
                 if (err) {
