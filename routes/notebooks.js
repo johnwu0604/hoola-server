@@ -15,7 +15,7 @@ module.exports = function (app, passport) {
     /**
      * Retrieve notebook for an authenticated user
      */
-    app.get('/notebooks', isAuthenticated, function(req,res) {
+    app.get('/notebook', isAuthenticated, function(req,res) {
         notebookController.getUserNotebook(req, function(notebook) {
             res.send({
                 "user_authenticated": true,
