@@ -10,11 +10,11 @@ module.exports = {
      * @param req
      * @param done
      */
-    getUserShoppingItems: function (req, done) {
-        shoppingService.findShoppingItemsByUserId(req.user.user_id, function(items) {
-            return done(items)
-        })
-    },
+  getUserShoppingItems: function (req, done) {
+    shoppingService.findShoppingItemsByUserId(req.user.user_id, function (items) {
+      return done(items)
+    })
+  },
 
     /**
      * Add shopping item to the user
@@ -22,17 +22,17 @@ module.exports = {
      * @param req
      * @param done
      */
-    addShoppingItemToUser: function (req, done) {
-        var item = new ShoppingItem()
-        item.item_id = UUID()
-        item.user_id = req.user.user_id
-        item.description = req.param('description')
-        shoppingService.addShoppingItem(item, function() {
-            shoppingService.findShoppingItemsByUserId(req.user.user_id, function(items) {
-                return done(items)
-            })
-        })
-    },
+  addShoppingItemToUser: function (req, done) {
+    var item = new ShoppingItem()
+    item.item_id = UUID()
+    item.user_id = req.user.user_id
+    item.description = req.param('description')
+    shoppingService.addShoppingItem(item, function () {
+      shoppingService.findShoppingItemsByUserId(req.user.user_id, function (items) {
+        return done(items)
+      })
+    })
+  },
 
     /**
      * Delete a shopping item given an id
@@ -40,13 +40,13 @@ module.exports = {
      * @param req
      * @param done
      */
-    deleteShoppingItem: function (req, done) {
-        shoppingService.deleteShoppingItem(req.params.item_id, function() {
-            shoppingService.findShoppingItemsByUserId(req.user.user_id, function(items) {
-                return done(items)
-            })
-        })
-    },
+  deleteShoppingItem: function (req, done) {
+    shoppingService.deleteShoppingItem(req.params.item_id, function () {
+      shoppingService.findShoppingItemsByUserId(req.user.user_id, function (items) {
+        return done(items)
+      })
+    })
+  },
 
     /**
      * Updates a shopping item
@@ -54,15 +54,15 @@ module.exports = {
      * @param req
      * @param done
      */
-    updateShoppingItem: function (req, done) {
-        shoppingService.findShoppingItemById(req.params.item_id, function(item) {
-            item.description = req.param('description') || item.description
-            shoppingService.updateShoppingItem(item, function() {
-                shoppingService.findShoppingItemsByUserId(req.user.user_id, function(items) {
-                    return done(items)
-                })
-            })
+  updateShoppingItem: function (req, done) {
+    shoppingService.findShoppingItemById(req.params.item_id, function (item) {
+      item.description = req.param('description') || item.description
+      shoppingService.updateShoppingItem(item, function () {
+        shoppingService.findShoppingItemsByUserId(req.user.user_id, function (items) {
+          return done(items)
         })
-    }
+      })
+    })
+  }
 
 }

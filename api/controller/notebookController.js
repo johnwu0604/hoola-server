@@ -10,12 +10,11 @@ module.exports = {
      * @param req
      * @param done
      */
-    getUserNotebook: function (req, done) {
-        notebookService.findByUserId(req.user.user_id, function(notebook) {
-            return done(notebook)
-        })
-    },
-
+  getUserNotebook: function (req, done) {
+    notebookService.findByUserId(req.user.user_id, function (notebook) {
+      return done(notebook)
+    })
+  },
 
     /**
      * Updates a notebook
@@ -23,16 +22,16 @@ module.exports = {
      * @param req
      * @param done
      */
-    updateNotebook: function (req, done) {
-        notebookService.findById(req.params.notebook_id, function(notebook) {
-            notebook.name = req.param('name') || notebook.name
-            notebook.text = req.param('text') || notebook.text
-            notebookService.updateNotebook(notebook, function() {
-                notebookService.findByUserId(req.user.user_id, function(notebook) {
-                    return done(notebook)
-                })
-            })
+  updateNotebook: function (req, done) {
+    notebookService.findById(req.params.notebook_id, function (notebook) {
+      notebook.name = req.param('name') || notebook.name
+      notebook.text = req.param('text') || notebook.text
+      notebookService.updateNotebook(notebook, function () {
+        notebookService.findByUserId(req.user.user_id, function (notebook) {
+          return done(notebook)
         })
-    }
+      })
+    })
+  }
 
 }

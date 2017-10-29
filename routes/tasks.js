@@ -1,6 +1,6 @@
 var isAuthenticated = function (req, res, next) {
-    if (req.isAuthenticated()) { return next() }
-    res.redirect('/unauthenticated')
+  if (req.isAuthenticated()) { return next() }
+  res.redirect('/unauthenticated')
 }
 var taskController = require('../api/controller/taskController')
 
@@ -11,53 +11,51 @@ var taskController = require('../api/controller/taskController')
  * @param passport
  */
 module.exports = function (app, passport) {
-
     /**
      * Retrieves all tasks for the authenticated user
      */
-    app.get('/tasks', isAuthenticated, function(req,res) {
-        taskController.getUserTasks(req, function(tasks) {
-            res.send({
-                "user_authenticated": true,
-                "tasks": tasks
-            })
-        })
+  app.get('/tasks', isAuthenticated, function (req, res) {
+    taskController.getUserTasks(req, function (tasks) {
+      res.send({
+        'user_authenticated': true,
+        'tasks': tasks
+      })
     })
+  })
 
     /**
      * Adds a tasks to the authenticated user
      */
-    app.post('/task', isAuthenticated, function (req, res) {
-        taskController.addTaskToUser(req, function(tasks) {
-            res.status(200).send({
-                "user_authenticated": true,
-                "tasks": tasks
-            })
-        })
+  app.post('/task', isAuthenticated, function (req, res) {
+    taskController.addTaskToUser(req, function (tasks) {
+      res.status(200).send({
+        'user_authenticated': true,
+        'tasks': tasks
+      })
     })
+  })
 
     /**
      * Updates a given task for an authenticated user
      */
-    app.put('/task/:task_id', isAuthenticated, function (req, res) {
-        taskController.updateTask(req, function(tasks) {
-            res.status(200).send({
-                "user_authenticated": true,
-                "tasks": tasks
-            })
-        })
+  app.put('/task/:task_id', isAuthenticated, function (req, res) {
+    taskController.updateTask(req, function (tasks) {
+      res.status(200).send({
+        'user_authenticated': true,
+        'tasks': tasks
+      })
     })
+  })
 
     /**
      * Deletes a given task for an authenticated user
      */
-    app.delete('/task/:task_id', isAuthenticated, function (req, res) {
-        taskController.deleteTask(req, function (tasks) {
-            res.status(200).send({
-                "user_authenticated": true,
-                "tasks": tasks
-            })
-        })
+  app.delete('/task/:task_id', isAuthenticated, function (req, res) {
+    taskController.deleteTask(req, function (tasks) {
+      res.status(200).send({
+        'user_authenticated': true,
+        'tasks': tasks
+      })
     })
-
+  })
 }
