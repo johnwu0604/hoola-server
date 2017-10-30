@@ -1,4 +1,4 @@
-var userService = require('../service/userService')
+var userService = require('./userService')
 var LocalStrategy = require('passport-local').Strategy
 var UUID = require('uuid/v1')
 var User = require('../model/user')

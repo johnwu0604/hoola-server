@@ -1,8 +1,3 @@
-var isAuthenticated = function (req, res, next) {
-  if (req.isAuthenticated()) { return next() }
-  res.redirect('/unauthenticated')
-}
-
 /**
  * Routes for authentication management
  *
@@ -39,7 +34,7 @@ module.exports = function (app, passport) {
     /**
      * Redirect route for a successful login
      */
-  app.get('/login-success', isAuthenticated, function (req, res) {
+  app.get('/login-success', app.isAuthenticated, function (req, res) {
     res.status(200).send({
       'login_success': true,
       'user': req.user
@@ -65,7 +60,7 @@ module.exports = function (app, passport) {
 
     // Temp endpoints
 
-  app.get('/dashboard', isAuthenticated, function (req, res) {
+  app.get('/dashboard', app.isAuthenticated, function (req, res) {
     res.send('Dashboard')
   })
 

@@ -11,7 +11,11 @@ var methodOverride = require('method-override')
 // passport
 var passport = require('passport')
 var expressSession = require('express-session')
-var initAuthenticationController = require('./api/controller/authenticationController')
+var initAuthenticationService = require('./api/service/authenticationService')
+var isAuthenticated = function (req, res, next) {
+    if (req.isAuthenticated()) { return next() }
+    res.redirect('/unauthenticated')
+}
 
 // setup
 app.use(expressSession({
@@ -33,8 +37,12 @@ app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
   next()
 })
+app.isAuthenticated = function (req, res, next) {
+    if (req.isAuthenticated()) { return next() }
+    res.redirect('/unauthenticated')
+}
 
-initAuthenticationController(passport)
+initAuthenticationService(passport)
 
 // route files
 require('./routes/authentication')(app, passport)
@@ -46,3 +54,5 @@ require('./routes/finances')(app, passport)
 // start server
 app.listen(port)
 console.log('App listing on port ' + port)
+
+module.exports = app

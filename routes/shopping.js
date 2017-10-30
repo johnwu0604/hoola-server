@@ -1,7 +1,3 @@
-var isAuthenticated = function (req, res, next) {
-  if (req.isAuthenticated()) { return next() }
-  res.redirect('/unauthenticated')
-}
 var shoppingController = require('../api/controller/shoppingController')
 
 /**
@@ -14,7 +10,7 @@ module.exports = function (app, passport) {
     /**
      * Retrieves all shopping list items for the authenticated user
      */
-  app.get('/shopping-list-items', isAuthenticated, function (req, res) {
+  app.get('/shopping-list-items', app.isAuthenticated, function (req, res) {
     shoppingController.getUserShoppingItems(req, function (items) {
       res.send({
         'user_authenticated': true,
@@ -26,7 +22,7 @@ module.exports = function (app, passport) {
     /**
      * Adds an item to the shopping list of an authenticated user
      */
-  app.post('/shopping-list-item', isAuthenticated, function (req, res) {
+  app.post('/shopping-list-item', app.isAuthenticated, function (req, res) {
     shoppingController.addShoppingItemToUser(req, function (items) {
       res.status(200).send({
         'user_authenticated': true,
@@ -38,7 +34,7 @@ module.exports = function (app, passport) {
     /**
      * Updates the item of an item in the shopping list of an authenticated user
      */
-  app.put('/shopping-list-item/:item_id', isAuthenticated, function (req, res) {
+  app.put('/shopping-list-item/:item_id', app.isAuthenticated, function (req, res) {
     shoppingController.updateShoppingItem(req, function (items) {
       res.status(200).send({
         'user_authenticated': true,
@@ -50,7 +46,7 @@ module.exports = function (app, passport) {
     /**
      * Deletes the an item from the shopping list of an authenticated user
      */
-  app.delete('/shopping-list-item/:item_id', isAuthenticated, function (req, res) {
+  app.delete('/shopping-list-item/:item_id', app.isAuthenticated, function (req, res) {
     shoppingController.deleteShoppingItem(req, function (items) {
       res.status(200).send({
         'user_authenticated': true,
