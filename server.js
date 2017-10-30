@@ -12,10 +12,6 @@ var methodOverride = require('method-override')
 var passport = require('passport')
 var expressSession = require('express-session')
 var initAuthenticationService = require('./api/service/authenticationService')
-var isAuthenticated = function (req, res, next) {
-    if (req.isAuthenticated()) { return next() }
-    res.redirect('/unauthenticated')
-}
 
 // setup
 app.use(expressSession({
@@ -38,8 +34,8 @@ app.use(function (req, res, next) {
   next()
 })
 app.isAuthenticated = function (req, res, next) {
-    if (req.isAuthenticated()) { return next() }
-    res.redirect('/unauthenticated')
+  if (req.isAuthenticated()) { return next() }
+  res.redirect('/unauthenticated')
 }
 
 initAuthenticationService(passport)

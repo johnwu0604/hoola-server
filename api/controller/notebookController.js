@@ -1,5 +1,3 @@
-var UUID = require('uuid/v1')
-var Notebook = require('../model/notebook')
 var notebookService = require('../service/notebookService')
 
 module.exports = {

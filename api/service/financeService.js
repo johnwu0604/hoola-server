@@ -48,14 +48,14 @@ module.exports = {
     /**
      * Find all financial items by user_id
      *
-     * @param user_id
+     * @param userId
      * @param done
      */
-  findFinanceItemsByUserId: function (user_id, done) {
+  findFinanceItemsByUserId: function (userId, done) {
     var query = 'SELECT finances.item_id, finances.user_id, finance_types.name AS type_name, finance_categories.name AS category_name, finances.date, finances.description, finances.amount' +
             ' FROM finances INNER JOIN finance_categories ON finances.category_id=finance_categories.category_id INNER JOIN finance_types ON finances.type_id=finance_types.type_id' +
             ' WHERE user_id = $1 ORDER BY date DESC'
-    db.query(query, [user_id], function (err, data) {
+    db.query(query, [userId], function (err, data) {
       if (err) {
         return console.error('error running query', err)
       }
@@ -82,12 +82,12 @@ module.exports = {
     /**
      * Deletes a financial item from the database
      *
-     * @param user
+     * @param itemId
      * @param done
      */
-  deleteItem: function (item_id, done) {
+  deleteItem: function (itemId, done) {
     db.query('DELETE FROM finances WHERE item_id = $1',
-            [item_id], function (err, data) {
+            [itemId], function (err, data) {
               if (err) {
                 return console.error('error running query', err)
               }

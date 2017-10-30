@@ -18,13 +18,13 @@ module.exports = {
   },
 
     /**
-     * Find shopping items by user_id
+     * Find shopping items by userId
      *
-     * @param user_id
+     * @param userId
      * @param done
      */
-  findShoppingItemsByUserId: function (user_id, done) {
-    db.query('SELECT * FROM shopping WHERE shopping.user_id = $1', [user_id], function (err, data) {
+  findShoppingItemsByUserId: function (userId, done) {
+    db.query('SELECT * FROM shopping WHERE shopping.user_id = $1', [userId], function (err, data) {
       if (err) {
         return console.error('error running query', err)
       }
@@ -51,12 +51,12 @@ module.exports = {
     /**
      * Deletes a shopping item from the database
      *
-     * @param item_id
+     * @param itemId
      * @param done
      */
-  deleteShoppingItem: function (item_id, done) {
+  deleteShoppingItem: function (itemId, done) {
     db.query('DELETE FROM shopping WHERE item_id = $1',
-            [item_id], function (err, data) {
+            [itemId], function (err, data) {
               if (err) {
                 return console.error('error running query', err)
               }

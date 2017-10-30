@@ -29,6 +29,9 @@ module.exports = {
         })
       }
     ], function (err, results) {
+      if (err) {
+        return err
+      }
       return done({
         'types': results[0],
         'categories': results[1],

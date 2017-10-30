@@ -20,11 +20,11 @@ module.exports = {
     /**
      * Find notebook by user_id
      *
-     * @param user_id
+     * @param userId
      * @param done
      */
-  findByUserId: function (user_id, done) {
-    db.query('SELECT * FROM notebooks WHERE notebooks.user_id = $1', [user_id], function (err, data) {
+  findByUserId: function (userId, done) {
+    db.query('SELECT * FROM notebooks WHERE notebooks.user_id = $1', [userId], function (err, data) {
       if (err) {
         return console.error('error running query', err)
       }
