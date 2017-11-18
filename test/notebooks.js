@@ -11,7 +11,6 @@ describe('Notebooks API Tests', function () {
             .post('/login')
             .set('Accept', 'application/json')
             .send({'email': 'john@smith.ca', 'password': 'password'})
-            .expect('Content-Type', /json/)
             .expect(200)
             .end(function (err, res) {
               if (err) { console.log(err) }

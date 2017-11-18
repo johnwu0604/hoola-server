@@ -24,7 +24,6 @@ describe('Shopping API Tests', function () {
     var req = request(app).get('/shopping-list-items')
     req.cookies = Cookies
     req.set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
             .expect(200)
             .end(function (err, res) {
               if (err) { console.log(err) }

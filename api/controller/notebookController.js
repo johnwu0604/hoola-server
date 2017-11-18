@@ -22,8 +22,8 @@ module.exports = {
      */
   updateNotebook: function (req, done) {
     notebookService.findById(req.params.notebook_id, function (notebook) {
-      notebook.name = req.param('name') || notebook.name
-      notebook.text = req.param('text') || notebook.text
+      notebook.name = req.body.name || notebook.name
+      notebook.text = req.body.text || notebook.text
       notebookService.updateNotebook(notebook, function () {
         notebookService.findByUserId(req.user.user_id, function (notebook) {
           return done(notebook)

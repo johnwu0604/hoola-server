@@ -50,11 +50,11 @@ module.exports = {
     var finance = new Finance()
     finance.item_id = UUID()
     finance.user_id = req.user.user_id
-    finance.type_id = req.param('type_id')
-    finance.category_id = req.param('category_id')
-    finance.date = req.param('date')
-    finance.description = req.param('description')
-    finance.amount = req.param('amount')
+    finance.type_id = req.body.type_id
+    finance.category_id = req.body.category_id
+    finance.date = req.body.date
+    finance.description = req.body.description
+    finance.amount = req.body.amount
     financeService.addFinanceItem(finance, function () {
       financeService.findFinanceItemsByUserId(req.user.user_id, function (items) {
         return done(items)

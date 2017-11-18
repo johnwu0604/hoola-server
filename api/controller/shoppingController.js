@@ -26,7 +26,7 @@ module.exports = {
     var item = new ShoppingItem()
     item.item_id = UUID()
     item.user_id = req.user.user_id
-    item.description = req.param('description')
+    item.description = req.body.description
     shoppingService.addShoppingItem(item, function () {
       shoppingService.findShoppingItemsByUserId(req.user.user_id, function (items) {
         return done(items)
@@ -56,7 +56,7 @@ module.exports = {
      */
   updateShoppingItem: function (req, done) {
     shoppingService.findShoppingItemById(req.params.item_id, function (item) {
-      item.description = req.param('description') || item.description
+      item.description = req.body.description || item.description
       shoppingService.updateShoppingItem(item, function () {
         shoppingService.findShoppingItemsByUserId(req.user.user_id, function (items) {
           return done(items)

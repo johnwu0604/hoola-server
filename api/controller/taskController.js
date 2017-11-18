@@ -26,8 +26,8 @@ module.exports = {
     var task = new Task()
     task.task_id = UUID()
     task.user_id = req.user.user_id
-    task.description = req.param('description')
-    task.due_date = req.param('due_date')
+    task.description = req.body.description
+    task.due_date = req.body.due_date
     taskService.addTask(task, function () {
       taskService.findByUserId(req.user.user_id, function (tasks) {
         return done(tasks)
@@ -57,8 +57,8 @@ module.exports = {
      */
   updateTask: function (req, done) {
     taskService.findById(req.params.task_id, function (task) {
-      task.description = req.param('description') || task.description
-      task.due_date = req.param('due_date') || task.due_date
+      task.description = req.body.description || task.description
+      task.due_date = req.body.due_date || task.due_date
       taskService.updateTask(task, function () {
         taskService.findByUserId(req.user.user_id, function (tasks) {
           return done(tasks)
