@@ -29,5 +29,17 @@
   },
   "scripts": {
     "test": "mocha --exit && standard"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "context",
+      "before",
+      "beforeEach",
+      "after",
+      "afterEach",
+      "it",
+      "expect"
+    ]
   }
 }

@@ -2,9 +2,9 @@ var request = require('supertest')
 var app = require('../server')
 require('should')
 
-describe('Task API Tests', function () {
+describe('Notebooks API Tests', function () {
   var Cookies
-  var newTaskId
+  var noteBookId
 
   it('login into a user session', function (done) {
     request(app)
@@ -20,8 +20,8 @@ describe('Task API Tests', function () {
             })
   })
 
-  it('retrieve all tasks for the user', function (done) {
-    var req = request(app).get('/tasks')
+  it('retrieve notebook for the user', function (done) {
+    var req = request(app).get('/notebook')
     req.cookies = Cookies
     req.set('Accept', 'application/json')
             .expect('Content-Type', /json/)
@@ -29,52 +29,38 @@ describe('Task API Tests', function () {
             .end(function (err, res) {
               if (err) { console.log(err) }
               res.body.user_authenticated.should.equal(true)
-              res.body.tasks.length.should.equal(1)
+              res.body.notebook.text.should.equal('A notebook to keep track of notes')
+              noteBookId = res.body.notebook.notebook_id
               done()
             })
   })
 
-  it('adds a task for the user', function (done) {
-    var req = request(app).post('/task')
+  it('updates the notebook', function (done) {
+    var req = request(app).put('/notebook/' + noteBookId)
     req.cookies = Cookies
     req.set('Accept', 'application/json')
-            .send({'description': 'Another task', 'due_date': '2017-10-08'})
+            .send({'text': 'A notebook to keep track of notes updated'})
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function (err, res) {
               if (err) { console.log(err) }
-              newTaskId = res.body.tasks[0].task_id
               res.body.user_authenticated.should.equal(true)
-              res.body.tasks.length.should.equal(2)
+              res.body.notebook.text.should.equal('A notebook to keep track of notes updated')
               done()
             })
   })
 
-  it('updates the newly added task', function (done) {
-    var req = request(app).put('/task/' + newTaskId)
+  it('Reverts updates to the notebook', function (done) {
+    var req = request(app).put('/notebook/' + noteBookId)
     req.cookies = Cookies
     req.set('Accept', 'application/json')
-            .send({'description': 'Updated task', 'due_date': '2017-10-08'})
+            .send({'text': 'A notebook to keep track of notes'})
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function (err, res) {
               if (err) { console.log(err) }
               res.body.user_authenticated.should.equal(true)
-              res.body.tasks.length.should.equal(2)
-              done()
-            })
-  })
-
-  it('deletes the newly added task', function (done) {
-    var req = request(app).delete('/task/' + newTaskId)
-    req.cookies = Cookies
-    req.set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .end(function (err, res) {
-              if (err) { console.log(err) }
-              res.body.user_authenticated.should.equal(true)
-              res.body.tasks.length.should.equal(1)
+              res.body.notebook.text.should.equal('A notebook to keep track of notes')
               done()
             })
   })

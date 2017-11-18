@@ -2,9 +2,9 @@ var request = require('supertest')
 var app = require('../server')
 require('should')
 
-describe('Task API Tests', function () {
+describe('Shopping API Tests', function () {
   var Cookies
-  var newTaskId
+  var newShoppingItemId
 
   it('login into a user session', function (done) {
     request(app)
@@ -20,8 +20,8 @@ describe('Task API Tests', function () {
             })
   })
 
-  it('retrieve all tasks for the user', function (done) {
-    var req = request(app).get('/tasks')
+  it('retrieve all shopping items for the user', function (done) {
+    var req = request(app).get('/shopping-list-items')
     req.cookies = Cookies
     req.set('Accept', 'application/json')
             .expect('Content-Type', /json/)
@@ -29,44 +29,44 @@ describe('Task API Tests', function () {
             .end(function (err, res) {
               if (err) { console.log(err) }
               res.body.user_authenticated.should.equal(true)
-              res.body.tasks.length.should.equal(1)
+              res.body.items.length.should.equal(1)
               done()
             })
   })
 
-  it('adds a task for the user', function (done) {
-    var req = request(app).post('/task')
+  it('adds a shopping item to the user', function (done) {
+    var req = request(app).post('/shopping-list-item')
     req.cookies = Cookies
     req.set('Accept', 'application/json')
-            .send({'description': 'Another task', 'due_date': '2017-10-08'})
+            .send({'description': 'Another shopping item'})
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function (err, res) {
               if (err) { console.log(err) }
-              newTaskId = res.body.tasks[0].task_id
+              newShoppingItemId = res.body.items[0].item_id
               res.body.user_authenticated.should.equal(true)
-              res.body.tasks.length.should.equal(2)
+              res.body.items.length.should.equal(2)
               done()
             })
   })
 
-  it('updates the newly added task', function (done) {
-    var req = request(app).put('/task/' + newTaskId)
+  it('updates the newly added shopping list item', function (done) {
+    var req = request(app).put('/shopping-list-item/' + newShoppingItemId)
     req.cookies = Cookies
     req.set('Accept', 'application/json')
-            .send({'description': 'Updated task', 'due_date': '2017-10-08'})
+            .send({'description': 'Updated shopping item'})
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function (err, res) {
               if (err) { console.log(err) }
               res.body.user_authenticated.should.equal(true)
-              res.body.tasks.length.should.equal(2)
+              res.body.items.length.should.equal(2)
               done()
             })
   })
 
-  it('deletes the newly added task', function (done) {
-    var req = request(app).delete('/task/' + newTaskId)
+  it('deletes the newly added shopping list item', function (done) {
+    var req = request(app).delete('/shopping-list-item/' + newShoppingItemId)
     req.cookies = Cookies
     req.set('Accept', 'application/json')
             .expect('Content-Type', /json/)
@@ -74,7 +74,7 @@ describe('Task API Tests', function () {
             .end(function (err, res) {
               if (err) { console.log(err) }
               res.body.user_authenticated.should.equal(true)
-              res.body.tasks.length.should.equal(1)
+              res.body.items.length.should.equal(1)
               done()
             })
   })
