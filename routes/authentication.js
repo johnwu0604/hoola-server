@@ -65,6 +65,6 @@ module.exports = function (app, passport) {
   })
 
   app.get('/', function (req, res) {
-    res.send(200)
+      res.status(200).send('not authenticated')
   })
 }

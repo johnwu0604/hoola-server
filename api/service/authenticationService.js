@@ -1,7 +1,9 @@
 var userService = require('./userService')
+var notebookService = require('./notebookService')
 var LocalStrategy = require('passport-local').Strategy
 var UUID = require('uuid/v1')
 var User = require('../model/user')
+var Notebook = require('../model/notebook')
 
 /**
  * Controller to manage all authentication operations
@@ -63,7 +65,15 @@ module.exports = function (passport) {
 
          userService.addUser(user, function () {
            userService.findById(user.user_id, function (data) {
-             return done(null, data)
+             var notebook = new Notebook()
+             notebook.notebook_id = UUID()
+             notebook.user_id = data.user_id
+             notebook.name = 'Main'
+             notebook.text = 'A notebook to keep track of notes'
+               console.log(notebook)
+             notebookService.createNotebook(notebook, function (result) {
+               return done(null, data)
+             })
            })
          })
        })

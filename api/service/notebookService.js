@@ -46,6 +46,22 @@ module.exports = {
               }
               return done()
             })
+  },
+
+    /**
+     * Creates a new notebook given parameters
+     *
+     * @param notebook
+     * @param done
+     */
+  createNotebook: function (notebook, done) {
+    db.query('INSERT INTO notebooks (notebook_id, user_id, name, text) VALUES ($1, $2, $3, $4)',
+          [notebook.notebook_id, notebook.user_id, notebook.name, notebook.text], function (err, data) {
+            if (err) {
+              return console.error('error running query', err)
+            }
+            return done()
+          })
   }
 
 }
