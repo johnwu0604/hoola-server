@@ -40,7 +40,7 @@ module.exports = function (passport) {
         userService.findOne(email, password, function (user) {
           if (!user) {
             console.log('User not found with username: ' + email + 'and password:' + password)
-            return done(null, false)
+            return done(null, false, { message: 'Invalid username or password' })
           }
           return done(null, user)
         })
@@ -56,25 +56,30 @@ module.exports = function (passport) {
     passwordField: 'password'
   },
        function (req, email, password, done) {
-         var user = new User()
-         user.user_id = UUID()
-         user.first_name = req.param('first_name')
-         user.last_name = req.param('last_name')
-         user.email = email
-         user.password = password
+         userService.findOne(email, password, function (existingUser) {
+           if (existingUser) {
+             return done(null, false, { message: 'User already exists' })
+           } else {
+             var user = new User()
+             user.user_id = UUID()
+             user.first_name = req.param('first_name')
+             user.last_name = req.param('last_name')
+             user.email = email
+             user.password = password
 
-         userService.addUser(user, function () {
-           userService.findById(user.user_id, function (data) {
-             var notebook = new Notebook()
-             notebook.notebook_id = UUID()
-             notebook.user_id = data.user_id
-             notebook.name = 'Main'
-             notebook.text = 'A notebook to keep track of notes'
-               console.log(notebook)
-             notebookService.createNotebook(notebook, function (result) {
-               return done(null, data)
+             userService.addUser(user, function () {
+               userService.findById(user.user_id, function (result) {
+                 var notebook = new Notebook()
+                 notebook.notebook_id = UUID()
+                 notebook.user_id = result.user_id
+                 notebook.name = 'Main'
+                 notebook.text = 'A notebook to keep track of notes'
+                 notebookService.createNotebook(notebook, function (notebooks) {
+                   return done(null, result)
+                 })
+               })
              })
-           })
+           }
          })
        })
     )

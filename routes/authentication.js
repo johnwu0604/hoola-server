@@ -8,11 +8,10 @@ module.exports = function (app, passport) {
     /**
      * Creates a new user and logs them into the portal
      *
-     * TODO : Redirect process
      */
   app.post('/signup', passport.authenticate('signup', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/'
+    successRedirect: '/signup-success',
+    failureRedirect: '/signup-failure'
   }))
 
     /**
@@ -45,8 +44,29 @@ module.exports = function (app, passport) {
      * Redirect route for a failed login
      */
   app.get('/login-failure', function (req, res) {
+    console.log(req)
     res.status(200).send({
       'login_success': false,
+      'user': null
+    })
+  })
+
+    /**
+     * Redirect route for a successful signup
+     */
+  app.get('/signup-success', app.isAuthenticated, function (req, res) {
+    res.status(200).send({
+      'signup_success': true,
+      'user': req.user
+    })
+  })
+
+    /**
+     * Redirect route for a failed signup
+     */
+  app.get('/signup-failure', function (req, res) {
+    res.status(200).send({
+      'signup_success': false,
       'user': null
     })
   })
@@ -65,6 +85,6 @@ module.exports = function (app, passport) {
   })
 
   app.get('/', function (req, res) {
-      res.status(200).send('not authenticated')
+    res.status(200).send('not authenticated')
   })
 }
