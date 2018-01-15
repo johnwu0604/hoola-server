@@ -8,8 +8,8 @@ module.exports = {
      * @param id
      * @param done
      */
-  findById: function (id, userId, done) {
-    db.query('SELECT * FROM notebooks WHERE notebooks.notebook_id = $1 AND notebooks.user_id = $2', [id, userId], function (err, data) {
+  findById: function (notebookId, userId, done) {
+    db.query('SELECT * FROM notebooks WHERE notebooks.notebook_id = $1 AND notebooks.user_id = $2', [notebookId, userId], function (err, data) {
       if (err) {
         return console.error('error running query', err)
       }
