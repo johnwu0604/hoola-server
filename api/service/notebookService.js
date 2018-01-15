@@ -18,7 +18,7 @@ module.exports = {
   },
 
     /**
-     * Find notebook by user_id
+     * Find notebooks by user_id
      *
      * @param userId
      * @param done
@@ -28,7 +28,7 @@ module.exports = {
       if (err) {
         return console.error('error running query', err)
       }
-      return done(data.rows[0])
+      return done(data.rows)
     })
   },
 

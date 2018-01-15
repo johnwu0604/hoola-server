@@ -5,14 +5,14 @@ var Notebook = require('../model/notebook')
 module.exports = {
 
     /**
-     * Retrieve the notebook for a user
+     * Retrieve the notebooks for a user
      *
      * @param req
      * @param done
      */
-  getUserNotebook: function (req, done) {
-    notebookService.findByUserId(req.user.user_id, function (notebook) {
-      return done(notebook)
+  getUserNotebooks: function (req, done) {
+    notebookService.findByUserId(req.user.user_id, function (notebooks) {
+      return done(notebooks)
     })
   },
 

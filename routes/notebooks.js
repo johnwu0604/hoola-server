@@ -8,13 +8,13 @@ var notebookController = require('../api/controller/notebookController')
  */
 module.exports = function (app, passport) {
     /**
-     * Retrieve notebook for an authenticated user
+     * Retrieve all notebooks for an authenticated user
      */
-  app.get('/notebook', app.isAuthenticated, function (req, res) {
-    notebookController.getUserNotebook(req, function (notebook) {
+  app.get('/notebooks', app.isAuthenticated, function (req, res) {
+    notebookController.getUserNotebooks(req, function (notebooks) {
       res.send({
         'user_authenticated': true,
-        'notebook': notebook
+        'notebooks': notebooks
       })
     })
   })
