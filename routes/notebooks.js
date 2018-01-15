@@ -32,6 +32,18 @@ module.exports = function (app, passport) {
   })
 
     /**
+     * Adds a notebook to the authenticated user
+     */
+    app.post('/notebook', app.isAuthenticated, function (req, res) {
+        notebookController.createNewNotebook(req, function (notebooks) {
+            res.status(200).send({
+                'user_authenticated': true,
+                'notebooks': notebooks
+            })
+        })
+    })
+
+    /**
      * Updates the notebook of an authenticated user
      */
   app.put('/notebook/:notebook_id', app.isAuthenticated, function (req, res) {
