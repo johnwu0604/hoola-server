@@ -69,14 +69,7 @@ module.exports = function (passport) {
 
              userService.addUser(user, function () {
                userService.findById(user.user_id, function (result) {
-                 var notebook = new Notebook()
-                 notebook.notebook_id = UUID()
-                 notebook.user_id = result.user_id
-                 notebook.name = 'Main'
-                 notebook.text = 'A notebook to keep track of notes'
-                 notebookService.createNotebook(notebook, function (notebooks) {
                    return done(null, result)
-                 })
                })
              })
            }
