@@ -57,6 +57,20 @@ module.exports = {
         return done(notebooks)
       })
     })
-  }
+  },
+
+    /**
+     * Delete a notebook given a notebook id
+     *
+     * @param req
+     * @param done
+     */
+    deleteNotebook: function (req, done) {
+        notebookService.deleteNotebook(req.params.notebook_id, req.user.user_id, function () {
+            notebookService.findByUserId(req.user.user_id, function (notebooks) {
+                return done(notebooks)
+            })
+        })
+    },
 
 }

@@ -54,4 +54,16 @@ module.exports = function (app, passport) {
       })
     })
   })
+
+    /**
+     * Deletes the selected notebook of an authenticated user
+     */
+    app.delete('/notebook/:notebook_id', app.isAuthenticated, function (req, res) {
+        notebookController.deleteNotebook(req, function (notebooks) {
+            res.status(200).send({
+                'user_authenticated': true,
+                'notebooks': notebooks
+            })
+        })
+    })
 }

@@ -62,6 +62,22 @@ module.exports = {
             }
             return done()
           })
-  }
+  },
+
+    /**
+     * Deletes a notebook from the database
+     *
+     * @param notebookId
+     * @param userId
+     * @param done
+     */
+    deleteNotebook: function (notebookId, userId, done) {
+        db.query('DELETE FROM notebooks WHERE notebooks.notebook_id = $1 AND notebooks.user_id = $2', [notebookId, userId], function (err, data) {
+                if (err) {
+                    return console.error('error running query', err)
+                }
+                return done()
+            })
+    }
 
 }
