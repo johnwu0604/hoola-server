@@ -20,6 +20,18 @@ module.exports = function (app, passport) {
   })
 
     /**
+     * Retrieve a notebook by id for the authenticated user
+     */
+  app.get('/notebook/:id', app.isAuthenticated, function (req, res) {
+    notebookController.getUserNotebookById(req, function (notebook) {
+      res.send({
+        'user_authenticated': true,
+        'notebook': notebook
+      })
+    })
+  })
+
+    /**
      * Updates the notebook of an authenticated user
      */
   app.put('/notebook/:notebook_id', app.isAuthenticated, function (req, res) {
