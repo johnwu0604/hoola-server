@@ -53,7 +53,7 @@ module.exports = {
     notebook.name = req.body.name
     notebook.text = req.body.text
     notebookService.createNotebook(notebook, function () {
-      notebookService.findByUserId(req.notebook.user_id, function (notebooks) {
+      notebookService.findByUserId(req.user.user_id, function (notebooks) {
         return done(notebooks)
       })
     })
